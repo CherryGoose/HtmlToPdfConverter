@@ -3,6 +3,7 @@ using System;
 using Html.Converter.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Volo.Abp.EntityFrameworkCore;
 
@@ -11,9 +12,10 @@ using Volo.Abp.EntityFrameworkCore;
 namespace Html.Converter.Migrations
 {
     [DbContext(typeof(ConverterDbContext))]
-    partial class ConverterDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221003153621_HtmlToPdfEntity")]
+    partial class HtmlToPdfEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

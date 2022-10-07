@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Html.Converter.HtmlToPdfConverter;
+using Microsoft.EntityFrameworkCore;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.EntityFrameworkCore;
+using Volo.Abp.EntityFrameworkCore.Modeling;
 using Volo.Abp.FeatureManagement.EntityFrameworkCore;
 using Volo.Abp.Identity;
 using Volo.Abp.Identity.EntityFrameworkCore;
@@ -24,8 +26,8 @@ public class ConverterDbContext :
     ITenantManagementDbContext
 {
     /* Add DbSet properties for your Aggregate Roots / Entities here. */
-
-    #region Entities from the modules
+    public DbSet<HtmlToPdfEntity> htmlToPdfEntities { get; set; }
+     #region Entities from the modules
 
     /* Notice: We only implemented IIdentityDbContext and ITenantManagementDbContext
      * and replaced them for this DbContext. This allows you to perform JOIN
@@ -74,7 +76,12 @@ public class ConverterDbContext :
         builder.ConfigureTenantManagement();
 
         /* Configure your own tables/entities inside here */
-
+        builder.Entity<HtmlToPdfEntity>(b =>
+        {
+            b.ToTable("HtmlToPdfEntitys",
+                ConverterConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+        });
         //builder.Entity<YourEntity>(b =>
         //{
         //    b.ToTable(ConverterConsts.DbTablePrefix + "YourEntities", ConverterConsts.DbSchema);
