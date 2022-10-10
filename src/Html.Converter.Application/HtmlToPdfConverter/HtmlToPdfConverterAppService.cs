@@ -114,6 +114,7 @@ namespace Html.Converter.HtmlToPdfConverter
                     try
                     {
                         File.Delete(item.FilePath);
+                        await _repository.DeleteAsync(item);
                     }
                     catch (Exception ex)
                     {
